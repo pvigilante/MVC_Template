@@ -1,0 +1,49 @@
+body {
+    background-color:#ebebeb;
+}
+hr {
+    clear: both;
+}
+.accordion .card-header {
+    cursor: pointer;
+}
+.project-meta {
+    padding-bottom: 1em;
+    &:after {
+        content: "";
+        clear: both;
+        display: block;
+    }
+}
+
+.comment-loop {
+    max-height: 300px;
+    overflow-y: scroll;
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.3);
+    border-radius: 4px;
+    padding: 1em;
+    display: none;
+
+    .comment-username {
+        display:block;
+        opacity: 0.75;
+        font-size:70%;
+    }
+
+    .my_comment {
+        text-align: right;
+        color: red;
+    }
+}
+
+#search_form {
+    position: relative;
+    z-index: 100;
+
+    #search_results {
+        position: absolute;
+        left:0;
+        top: 100%;
+        z-index: 100;
+    }
+}

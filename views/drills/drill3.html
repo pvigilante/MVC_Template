@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="search" id="search">
+    <table id="courses_table">
+        <thead>
+            <tr>
+                <th>Course</th>
+                <th>Instructor</th>
+                <th>Quarter</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        
+        $.ajax({
+            url: 'get_courses.php',
+            method: 'get',
+            success: function(course_data){
+                var parsed_courses = JSON.parse(course_data);
+                $.each(parsed_courses, function(index, course){
+                    var output = "<tr><td>"+index+":"+course.course_name+"</td><td>"+course.instructor+"</td><td>"+course.quarter+"</td></tr>";
+
+                    $("#courses_table tbody").append(output);
+                });
+            }
+        });
+
+
+        //////////////
+        $('#search').on('keyup', function(e){
+            var search_query = $(this).val();
+            
+            $.ajax({
+                url: 'get_courses.php',
+                method: 'get',
+                data: {
+                    cool_search: search_query
+                },
+                success: function(course_data){
+                    var parsed_courses = JSON.parse(course_data);
+                    
+                    $("#courses_table tbody").html('');
+
+                    $.each(parsed_courses, function(index, course){
+                        var output = "<tr><td>"+index+":"+course.course_name+"</td><td>"+course.instructor+"</td><td>"+course.quarter+"</td></tr>";
+
+                        $("#courses_table tbody").append(output);
+                    });
+                }
+            });
+
+            console.log();
+        });
+        //////////////
+
+    });
+    </script>
+</body>
+</html>
